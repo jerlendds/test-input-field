@@ -9,6 +9,9 @@ import styles from "./base.module.scss";
 import {
   BlockEntity,
   BlockEntityOutgoingLinkAndTarget,
+  TestInputFieldAttributesPropertyValue,
+  TestInputFieldProperties,
+  TestInputFieldValidationsPropertyValue,
 } from "./types/generated/block-entity";
 
 interface ValidateInputEventRules {
@@ -19,8 +22,23 @@ interface ValidateInputEventRules {
   fieldRequired: boolean | undefined
 }
 
+const testInputFieldName: keyof BlockEntity["properties"] = "https://blockprotocol.org/@blockprotocol/types/property-type/name/";
+const testInputFieldType: keyof BlockEntity["properties"] = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-type/";
+const testInputFieldValue: keyof BlockEntity["properties"] = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-value/";
+const inputFieldAttributes: keyof BlockEntity["properties"] = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-attributes/";
+const inputFieldValidations: keyof BlockEntity["properties"] = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-validations/";
+
+const testInputFieldRequired: keyof TestInputFieldValidationsPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-required/"
+const testInputFieldMinimum: keyof TestInputFieldValidationsPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-minimum/"
+const testInputFieldMaximum: keyof TestInputFieldValidationsPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-maximum/"
+const testInputFieldPattern: keyof TestInputFieldValidationsPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-pattern/"
+const testInputValidationError: keyof TestInputFieldValidationsPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-error/"
+
+const testInputFieldLabel: keyof TestInputFieldAttributesPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-label/"
+const testInputFieldPlaceholder: keyof TestInputFieldAttributesPropertyValue = "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-placeholder/"
+
 export const App: BlockComponent<BlockEntity> = ({
-  graph: { blockEntitySubgraph },
+  graph: { blockEntitySubgraph, readonly },
 }) => {
   const blockRootRef = useRef<HTMLLabelElement>(null);
   const { graphModule } = useGraphBlockModule(blockRootRef);
@@ -28,26 +46,23 @@ export const App: BlockComponent<BlockEntity> = ({
     BlockEntity,
     BlockEntityOutgoingLinkAndTarget[]
   >(blockEntitySubgraph);
+  const {
+    metadata: {
+      recordId: { entityId },
+      entityTypeId,
+    },
+    properties
+  } = blockEntity
 
-  const testInputFieldName: keyof BlockEntity["properties"] =
-    "https://blockprotocol.org/@blockprotocol/types/property-type/name/";
-  const testInputFieldType: keyof BlockEntity["properties"] =
-    "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-type/";
-  const testInputFieldValue: keyof BlockEntity["properties"] =
-    "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-value/";
-  const inputFieldAttributes: keyof BlockEntity["properties"] =
-    "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-attributes/";
-  const inputFieldValidations: keyof BlockEntity["properties"] =
-    "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-validations/";
 
-  const entityId = blockEntity.metadata.recordId.entityId;
-  const inputName = blockEntity.properties[testInputFieldName];
-  const inputType = blockEntity.properties[testInputFieldType];
-  const inputValue = blockEntity.properties[testInputFieldValue];
+
+  const inputName = properties[testInputFieldName];
+  const inputType = properties[testInputFieldType];
+  const inputValue = properties[testInputFieldValue];
   const [value, setValue] = useState(inputValue);
 
-  const attributes = blockEntity.properties[inputFieldAttributes];
-  const validations = blockEntity.properties[inputFieldValidations];
+  const attributes = properties[inputFieldAttributes];
+  const validations = properties[inputFieldValidations];
 
   let inputFieldError = "Validation error";
   if (validations) inputFieldError = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-error/"] ?? "Validation error"
@@ -103,11 +118,11 @@ export const App: BlockComponent<BlockEntity> = ({
 
   const handleInputValidation = (event: FocusEvent<HTMLInputElement, Element>) => {
     if (validations) {
-      const fieldRequired = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-required/"]
-      const fieldMinimum = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-minimum/"]
-      const fieldMaximum = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-maximum/"]
-      const fieldPattern = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-pattern/"]
-      const validationError = validations["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-error/"]
+      const fieldRequired = validations[testInputFieldRequired]
+      const fieldMinimum = validations[testInputFieldMinimum]
+      const fieldMaximum = validations[testInputFieldMaximum]
+      const fieldPattern = validations[testInputFieldPattern]
+      const validationError = validations[testInputValidationError]
 
       validateInputEvent(event, {
         fieldMinimum,
@@ -134,8 +149,8 @@ export const App: BlockComponent<BlockEntity> = ({
     }
   };
 
-  const placeholder = attributes?.["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-placeholder/"];
-  const label = attributes?.["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-label/"];
+  const placeholder = attributes?.[testInputFieldPlaceholder];
+  const label = attributes?.[testInputFieldLabel];
 
   return (
     <label ref={blockRootRef} className={styles["test-input-field"]} htmlFor={inputName.toLowerCase().replace(/\s/, "-")}>
@@ -149,6 +164,7 @@ export const App: BlockComponent<BlockEntity> = ({
         onClick={(event) => validateCheckbox(event, validations?.["https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-required/"])}
         onChange={(event) => handleInputChange(event)}
         value={value}
+        readOnly={readonly}
       />
       {isValidationError && <span>{inputError}</span>}
     </label>

@@ -24,8 +24,8 @@ export const blockEntity: BlockEntity = {
           "Github Profile",
       },
       "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-validations/": {
-      "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-minimum/": 3,
-      "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-maximum/": 120,
+      "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-minimum/": undefined,
+      "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-maximum/": undefined,
       "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-required/": true,
         "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-pattern/": "^https:\/\/github.com\/([A-z\W\d]).*",
         "https://blockprotocol.org/@jerlendds/types/property-type/test-input-field-error/": "Please enter a valid Github profile url"
