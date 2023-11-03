@@ -1,13 +1,14 @@
 {
-  "name": "blockprotocol-first",
+  "name": "test-input-field",
   "version": "0.0.0",
-  "description": "blockprotocol-first block",
+  "description": "Input Field block example showcasing validation for a github profile url.",
   "keywords": [
     "blockprotocol",
     "blocks"
   ],
   "license": "MIT",
   "author": "jerlendds",
+  "repository": "https://github.com/jerlendds/test-input-field",
   "scripts": {
     "build": "block-scripts build",
     "codegen": "block-scripts codegen && yarn format",
@@ -46,7 +47,7 @@
     "displayName": "Test Input Field",
     "icon": "public/omega.svg",
     "image": "public/block-preview.png",
-    "name": "blockprotocol-first",
+    "name": "test-input-field",
     "protocol": "0.3",
     "blockEntityType": "https://blockprotocol.org/@jerlendds/types/entity-type/test-input-field/v/9",
     "codegen": {
