@@ -1,7 +1,7 @@
 {
   "name": "test-input-field",
   "version": "0.0.0",
-  "description": "Validated Input Field, an example of a customizable input block showcasing validation for a github profile url.",
+  "description": "A Test Input Field with validation properties, an example of a customizable input block showcasing validation for a github profile url.",
   "keywords": [
     "blockprotocol",
     "blocks"
@@ -47,7 +47,7 @@
     },
     "icon": "public/abc.svg",
     "image": "public/block-preview.png",
-    "displayName": "Validated Input Field",
+    "displayName": "Test Input Field",
     "name": "@jerlendds/test-input-field",
     "protocol": "0.3",
     "blockEntityType": "https://blockprotocol.org/@jerlendds/types/entity-type/test-input-field/v/9",
