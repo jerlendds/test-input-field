@@ -41,7 +41,7 @@
     "port": 63212
   },
   "blockprotocol": {
-    "commit": "8726d8f3b26ac92bf287d59b302936fc8bbe1710",
+    "commit": "a4b2d31def48ed3cdabdf0cc062a5ee91565a476",
     "blockType": {
       "entryPoint": "react"
     },
