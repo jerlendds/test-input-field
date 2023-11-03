@@ -1,0 +1,22 @@
+/*  ----------------------------------------------------------------------
+Styles used for the Test Input Field - https://blockprotocol.org/@jerlendds/types/entity-type/test-input-field/v/9
+----------------------------------------------------------------------  */
+.test-input-field {
+  font-family: system-ui, "Helvetica Neue", "Arial", sans-serif;
+  color: #1e293b;
+
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+
+  input {
+    margin-top: 0.1rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.15rem;
+    border: 1px solid #101;
+  }
+
+  span {
+    font-size: 0.75rem;
+  }
+}
